@@ -5,7 +5,6 @@ import path from 'path';
 import redirectSSL from 'redirect-ssl';
 import healthCheckMiddleware from './middleware/server/health-check.js';
 import sourcemapMiddleware from './middleware/server/sourcemaps.js';
-import vanityRedirectMiddleware from './server/middleware/vanityRedirect.js';
 import wwwRedirectMiddleware from './server/middleware/wwwRedirect.js';
 import wsServer from './socket.io/server';
 import redirectRules from './redirects';
@@ -92,7 +91,7 @@ module.exports = {
         ],
       },
     ],
-    'nuxt-trailingslash-module',
+    // 'nuxt-trailingslash-module',
     '@nuxtjs/axios',
     [
       'nuxt-i18n',
@@ -112,27 +111,6 @@ module.exports = {
         ],
         lazy: true,
         langDir: 'lang/',
-      },
-    ],
-    '@nuxtjs/sentry',
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: 'REMOVED',
-        batch: {
-          enabled: true,
-          amount: 2,
-          delay: 1000, // ms
-        },
-        autoTracking: {
-          pageviewTemplate: function(route) {
-            return {
-              page: route.path.replace(/\/$/, ''), // path with trailing slash removed
-              title: document.title,
-              location: window.location.href,
-            };
-          },
-        },
       },
     ],
     [
@@ -234,31 +212,6 @@ module.exports = {
     { src: '~/plugins/vue-timeago' },
     { src: '~/plugins/performance.js' },
   ],
-  sentry: {
-    dsn:
-      'REMOVED',
-    disabled: process.env.NODE_ENV !== 'production',
-    environment: process.env.HOST_PUBLIC,
-    publishRelease: true,
-    sourceMapStyle: 'hidden-source-map',
-    webpackConfig: {
-      org: 'web-captioner',
-      project: 'web-captioner',
-      authToken: process.env.SENTRY_AUTH_TOKEN_PRIVATE,
-    },
-    tracing: {
-      tracesSampleRate: 0.25,
-      vueOptions: {
-        tracing: true,
-        tracingOptions: {
-          hooks: ['mount', 'update'],
-          timeout: 2000,
-          trackComponents: true,
-        },
-      },
-      browserOptions: {},
-    },
-  },
   bootstrapVue: {
     icons: false,
   },
@@ -306,7 +259,6 @@ module.exports = {
         }
 
         app.use(wwwRedirectMiddleware);
-        app.use(vanityRedirectMiddleware);
         app.use(sourcemapMiddleware);
       });
   },

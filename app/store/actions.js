@@ -59,44 +59,44 @@ export default {
 
   INIT_CHECK_AUTH_STATUS_WATCHER: function({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-      this.$firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          // User is signed in.
-          const { displayName, email, photoURL, uid } = user;
-          commit('SET_USER', {
-            displayName,
-            email,
-            photoURL,
-            uid,
-            signedIn: true,
-          });
-
-          if (state.user.shouldSaveSettingsOnNextSignIn) {
-            // This will happen if this is the first time they're signing in.
-            commit('SAVE_SETTINGS_TO_FIRESTORE_ON_NEXT_LOGIN', false);
-            commit('SHOW_FIRST_SIGN_IN_MESSAGE', true);
-            dispatch('SAVE_SETTINGS_TO_FIRESTORE');
-          } else {
-            // Not their first sign in.
-          }
-        } else {
-          // User is signed out/not signed in
-          commit('SET_USER', {
-            displayName: null,
-            email: null,
-            photoURL: null,
-            uid: null,
-            signedIn: false,
-          });
-        }
-
-        resolve(user);
-      });
+//       this.$firebase.auth().onAuthStateChanged((user) => {
+//         if (user) {
+//           // User is signed in.
+//           const { displayName, email, photoURL, uid } = user;
+//           commit('SET_USER', {
+//             displayName,
+//             email,
+//             photoURL,
+//             uid,
+//             signedIn: true,
+//           });
+//
+//           if (state.user.shouldSaveSettingsOnNextSignIn) {
+//             // This will happen if this is the first time they're signing in.
+//             commit('SAVE_SETTINGS_TO_FIRESTORE_ON_NEXT_LOGIN', false);
+//             commit('SHOW_FIRST_SIGN_IN_MESSAGE', true);
+//             dispatch('SAVE_SETTINGS_TO_FIRESTORE');
+//           } else {
+//             // Not their first sign in.
+//           }
+//         } else {
+//           // User is signed out/not signed in
+//           commit('SET_USER', {
+//             displayName: null,
+//             email: null,
+//             photoURL: null,
+//             uid: null,
+//             signedIn: false,
+//           });
+//         }
+//
+//         resolve(user);
+//       });
     });
   },
 
   SAVE_SETTINGS_TO_FIRESTORE: function({ state }) {
-    saveSettingsToFirestore(state, this.$firebase.firestore());
+    // saveSettingsToFirestore(state, this.$firebase.firestore());
   },
 
   START_DETACHED_MODE: ({ commit, state }) => {
