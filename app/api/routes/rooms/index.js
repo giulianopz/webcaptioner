@@ -1,7 +1,7 @@
+import { customAlphabet, nanoid } from 'nanoid';
+const nanoidRoom = customAlphabet('23456789ABCDEFGHJKLMNPQRSTUVWXYZ_abcdefghjkmnpqrstuvwxyz-', 8);
 const rooms = require('express').Router();
 const redis = require('./../../redis');
-const nanoid = require('nanoid');
-const nanoidGenerate = require('nanoid/generate')
 const getSubscriberCount = require('./getSubscriberCount');
 const openGraphScraper = require('open-graph-scraper');
 const url = require('url');
@@ -146,7 +146,7 @@ rooms.post('/', async (req, res, next) => {
 //     }
   } else {
     do {
-      roomId = nanoidGenerate('23456789ABCDEFGHJKLMNPQRSTUVWXYZ_abcdefghjkmnpqrstuvwxyz-', 8);
+      roomId = nanoidRoom();
       roomKey = 'rooms:' + roomId;
       roomKeyAlreadyExists = await redisClient.existsAsync(roomKey) === 1;
     }
