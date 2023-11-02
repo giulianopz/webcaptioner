@@ -4,10 +4,6 @@
   "description": "A speech-to-text service using the Web Speech API",
   "author": "Curt Grimes <github@curtgrimes.com>",
   "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=16"
-  },
   "config": {
     "nuxt": {
       "host": "0.0.0.0",
@@ -87,9 +83,9 @@
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
     "lodash.throttle": "^4.1.1",
-    "node-fetch": "^2.6.0",
-    "nodemon": "^1.18.5",
-    "normalize-strings": "^1.1.0",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.0.1",
+    "normalize-strings": "^1.1.1",
     "nuxt-env": "^0.1.0",
     "nuxt-fontawesome": "^0.4.0",
     "nuxt-i18n": "^6.12.2",

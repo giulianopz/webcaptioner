@@ -215,7 +215,8 @@ module.exports = {
   loading: false,
   build: {
     transpile: [
-      'screenfull'
+      'screenfull',
+      'node-fetch'
     ],
     babel: {
       compact: true, // https://github.com/bootstrap-vue/bootstrap-vue/issues/5627#issuecomment-668487772
