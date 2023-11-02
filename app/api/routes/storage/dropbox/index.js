@@ -3,7 +3,6 @@ const Dropbox = require('dropbox').Dropbox;
 const axios = require('axios');
 const fetch = require('isomorphic-fetch');
 const { format: dateFormat } = require('date-fns');
-const Sentry = require('./../../../sentry');
 
 function getDropboxClient() {
   return new Dropbox({

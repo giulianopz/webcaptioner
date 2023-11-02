@@ -34,7 +34,7 @@
 </template>
 
 <style>
-@import url('firebaseui/dist/firebaseui.css');
+/* @import url('firebaseui/dist/firebaseui.css'); */
 </style>
 
 
@@ -42,7 +42,7 @@
 import { BSpinner } from 'bootstrap-vue';
 
 if (process.client) {
-  let firebaseui = require('firebaseui');
+  // let firebaseui = require('firebaseui');
 }
 
 export default {

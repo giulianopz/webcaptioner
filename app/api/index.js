@@ -4,10 +4,8 @@ const app = express();
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
-const cacheControl = require('express-cache-controller');
 
 app.use(bodyParser.json());
-app.use(cacheControl());
 app.use((error, request, response, next) => {
   if (error !== null) {
     return response.sendStatus(400);

@@ -36,7 +36,6 @@ import FirstSignInModal from '~/components/FirstSignInModal.vue';
 import RemoteEventBus from '~/mixins/RemoteEventBus';
 import throttle from 'lodash.throttle';
 import { getCurrentVersionNumber } from '~/mixins/settingsNormalizer.js';
-import versionSort from 'semver-compare';
 import '~/components/_globals';
 import { BToast, BToaster } from 'bootstrap-vue';
 import channels from '~/plugins/channels';
@@ -399,7 +398,7 @@ export default {
     },
     '$store.state.user.signedIn'() {
       if (this.$store.state.user.signedIn && this.$store.state.user.email) {
-        this.$sentry.setUser({ email: this.$store.state.user.email });
+        console.log(`sentry removed, would have stored ${this.$store.state.user.email}`);
       }
     },
   },

@@ -4,39 +4,37 @@ const nanoid = require('nanoid');
 const nanoidGenerate = require('nanoid/generate')
 const getSubscriberCount = require('./getSubscriberCount');
 const openGraphScraper = require('open-graph-scraper');
-const vibrant = require('node-vibrant')
 const url = require('url');
 const twitch = require('./twitch');
-const firebaseAdmin = require('./../../firebaseAdmin.js');
 
 const expireHours = 48;
 
 rooms.get('/', async (req, res, next) => {
-  if (req.query.customDomain) {
-    // Find the room for this given custom domain
-    let db = firebaseAdmin().firestore();
-
-    db.collectionGroup('privileges')
-      .where('customDomain', '==', req.query.customDomain)
-      .get()
-      .then((querySnapshot) => {
-        if (querySnapshot.size) {
-          querySnapshot.forEach((doc) => {
-            let {
-              customDomain
-            } = doc.data();
-
-            if (customDomain) {
-              res.send(customDomain);
-              return;
-            }
-          });
-        }
-
-        res.sendStatus(404);
-      });
-    return;
-  }
+//   if (req.query.customDomain) {
+//     // Find the room for this given custom domain
+//     let db = firebaseAdmin().firestore();
+//
+//     db.collectionGroup('privileges')
+//       .where('customDomain', '==', req.query.customDomain)
+//       .get()
+//       .then((querySnapshot) => {
+//         if (querySnapshot.size) {
+//           querySnapshot.forEach((doc) => {
+//             let {
+//               customDomain
+//             } = doc.data();
+//
+//             if (customDomain) {
+//               res.send(customDomain);
+//               return;
+//             }
+//           });
+//         }
+//
+//         res.sendStatus(404);
+//       });
+//     return;
+//   }
 
 
 
@@ -107,43 +105,45 @@ rooms.post('/', async (req, res, next) => {
       return;
     }
 
-    // Authenticate (verify ID token)
-    let decodedToken;
-    try {
-      decodedToken = await firebaseAdmin().auth().verifyIdToken(req.body.idToken);
-    } catch (e) {
-      // Invalid token ID
-      res.sendStatus(403);
-      return;
-    }
-
-    if (!decodedToken.uid) {
-      res.sendStatus(403);
-      return;
-    }
-
-    // Check that they're allowed to request this vanity URL
-    let db = firebaseAdmin().firestore();
-    let vanity = await db.collection('users')
-      .doc(decodedToken.uid)
-      .collection('privileges')
-      .doc('share')
-      .get()
-      .then((document) => {
-        if (document.exists) {
-          return document.data().vanity;
-        }
-      });
-
-    if (vanity) {
-      // They have a vanity URL
-      roomId = vanity;
-      roomKey = 'rooms:' + roomId;
-    } else {
-      // They don't have a vanity URL
-      res.sendStatus(403);
-      return;
-    }
+    res.sendStatus(403);
+    return;
+//     // Authenticate (verify ID token)
+//     let decodedToken;
+//     try {
+//       decodedToken = await firebaseAdmin().auth().verifyIdToken(req.body.idToken);
+//     } catch (e) {
+//       // Invalid token ID
+//       res.sendStatus(403);
+//       return;
+//     }
+//
+//     if (!decodedToken.uid) {
+//       res.sendStatus(403);
+//       return;
+//     }
+//
+//     // Check that they're allowed to request this vanity URL
+//     let db = firebaseAdmin().firestore();
+//     let vanity = await db.collection('users')
+//       .doc(decodedToken.uid)
+//       .collection('privileges')
+//       .doc('share')
+//       .get()
+//       .then((document) => {
+//         if (document.exists) {
+//           return document.data().vanity;
+//         }
+//       });
+//
+//     if (vanity) {
+//       // They have a vanity URL
+//       roomId = vanity;
+//       roomKey = 'rooms:' + roomId;
+//     } else {
+//       // They don't have a vanity URL
+//       res.sendStatus(403);
+//       return;
+//     }
   } else {
     do {
       roomId = nanoidGenerate('23456789ABCDEFGHJKLMNPQRSTUVWXYZ_abcdefghjkmnpqrstuvwxyz-', 8);
@@ -298,29 +298,29 @@ rooms.get('/:roomId/backlink', async (req, res) => {
           };
         }
 
-        if (backlinkData.imageUrl) {
-          try {
-            const palettes = await vibrant.from(backlinkData.imageUrl).getPalette();
-
-            // Some of the palettes returned might be null. Find the first
-            // non-null one in this order.
-            const palette = [
-              palettes.Vibrant,
-              palettes.LightVibrant,
-              palettes.DarkVibrant,
-              palettes.Muted,
-              palettes.LightMuted,
-              palettes.DarkMuted,
-            ].find((p) => p);
-
-            if (palette) {
-              backlinkData.colors = {
-                background: palette.getHex(),
-                text: palette.getBodyTextColor(),
-              };
-            }
-          } catch (e) {}
-        }
+//         if (backlinkData.imageUrl) {
+//           try {
+//             const palettes = await vibrant.from(backlinkData.imageUrl).getPalette();
+//
+//             // Some of the palettes returned might be null. Find the first
+//             // non-null one in this order.
+//             const palette = [
+//               palettes.Vibrant,
+//               palettes.LightVibrant,
+//               palettes.DarkVibrant,
+//               palettes.Muted,
+//               palettes.LightMuted,
+//               palettes.DarkMuted,
+//             ].find((p) => p);
+//
+//             if (palette) {
+//               backlinkData.colors = {
+//                 background: palette.getHex(),
+//                 text: palette.getBodyTextColor(),
+//               };
+//             }
+//           } catch (e) {}
+//         }
       }
     } catch (error) {
       // Unable to get info. Send default empty object.

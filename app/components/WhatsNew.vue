@@ -37,7 +37,7 @@
 
 <script>
 import changelog from '~/mixins/data/changelog.js';
-import versionSort from 'semver-compare';
+import { compareVersions } from 'compare-versions';
 import dateFormatMixin from '~/mixins/dateFormat';
 
 export default {
@@ -46,12 +46,7 @@ export default {
   props: ['limit', 'hideTitle', 'small'],
   computed: {
     changelogSortedByVersionNumber: function() {
-      let sortedChangelog = changelog.sort(function(
-        changelogEntryA,
-        changelogEntryB
-      ) {
-        return versionSort(changelogEntryB.version, changelogEntryA.version);
-      });
+      let sortedChangelog = changelog.sort(compareVersions);
       return sortedChangelog.slice(0, this.limit || 10);
     },
   },

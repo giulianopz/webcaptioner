@@ -7,7 +7,7 @@ import healthCheckMiddleware from './middleware/server/health-check.js';
 import sourcemapMiddleware from './middleware/server/sourcemaps.js';
 import wwwRedirectMiddleware from './server/middleware/wwwRedirect.js';
 import wsServer from './socket.io/server';
-import redirectRules from './redirects';
+// import redirectRules from './redirects';
 
 module.exports = {
   head: {
@@ -87,7 +87,6 @@ module.exports = {
           'FIREBASE_MESSAGING_SENDER_ID',
           'GOOGLE_CAST_APP_ID',
           'HOST_PUBLIC',
-          'STRIPE_API_KEY_PUBLIC',
         ],
       },
     ],
@@ -193,22 +192,16 @@ module.exports = {
       },
     ],
     ['bootstrap-vue/nuxt'],
-    [
-      '@nuxtjs/redirect-module',
-      {
-        rules: redirectRules,
-      },
-    ],
   ],
   plugins: [
     {
       src: '~/plugins/websocket',
       mode: 'client',
     },
-    {
-      src: '~/plugins/firebase.js',
-      mode: 'client',
-    },
+    // {
+    //   src: '~/plugins/firebase.js',
+    //   mode: 'client',
+    // },
     { src: '~/plugins/vue-timeago' },
     { src: '~/plugins/performance.js' },
   ],
