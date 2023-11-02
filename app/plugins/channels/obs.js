@@ -1,6 +1,6 @@
 import OBSWebSocket from 'obs-websocket-js';
 import throttle from 'lodash.throttle';
-import compareVersions from 'compare-versions';
+import { compareVersions } from 'compare-versions';
 
 export default async ({ $store, $axios, channelId, channelParameters }) => {
   // Register
