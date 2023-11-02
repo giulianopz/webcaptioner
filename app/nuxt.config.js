@@ -214,6 +214,9 @@ module.exports = {
   },
   loading: false,
   build: {
+    transpile: [
+      'screenfull'
+    ],
     babel: {
       compact: true, // https://github.com/bootstrap-vue/bootstrap-vue/issues/5627#issuecomment-668487772
       plugins: [

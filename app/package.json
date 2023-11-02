@@ -4,6 +4,10 @@
   "description": "A speech-to-text service using the Web Speech API",
   "author": "Curt Grimes <github@curtgrimes.com>",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
   "config": {
     "nuxt": {
       "host": "0.0.0.0",
@@ -96,8 +100,7 @@
     "promise-polyfill": "^8.1.0",
     "sass": "^1.69.5",
     "sass-loader": "^10.1.1",
-    "screenfull": "^4.2.0",
-    "start-server-and-test": "^1.7.12",
+    "screenfull": "^6.0.2",
     "uuid": "^8.2.0",
     "vue-native-websocket": "^2.0.12",
     "whatwg-fetch": "^2.0.4"
