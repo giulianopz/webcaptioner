@@ -216,7 +216,9 @@ module.exports = {
   build: {
     transpile: [
       'screenfull',
-      'node-fetch'
+      'node-fetch',
+      'query-string',
+      'filter-obj',
     ],
     babel: {
       compact: true, // https://github.com/bootstrap-vue/bootstrap-vue/issues/5627#issuecomment-668487772

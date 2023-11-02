@@ -41,13 +41,13 @@
     "obs-websocket-js": "^4.0.1",
     "open-graph-scraper": "^3.6.2",
     "parse-domain": "^2.1.7",
-    "query-string": "^6.2.0",
+    "query-string": "^8.1.0",
     "redirect-ssl": "^3.0.0",
     "redis": "^2.8.0",
-    "slug": "^2.1.0",
+    "slug": "^8.2.3",
     "url": "^0.11.0",
     "vue-timeago": "^5.0.0",
-    "ws": "^6.1.0"
+    "ws": "^8.14.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.23.0",
