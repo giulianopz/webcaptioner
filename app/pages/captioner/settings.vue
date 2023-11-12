@@ -1,38 +1,18 @@
 <template>
-  <div
-    class="settings-view"
-    :style="{ height }"
-    style="overflow: auto;"
-    ref="settingsView"
-  >
-    <router-link
-      aria-label="Close Settings"
-      :to="localePath('captioner')"
-      class="btn btn-light d-none d-sm-block position-fixed py-md-3 px-3 px-md-4"
-      style="z-index: 2; right: 0; top: 0;"
-      role="tab"
-      active-class
-    >
+  <div class="settings-view" :style="{ height }" style="overflow: auto;" ref="settingsView">
+    <router-link aria-label="Close Settings" :to="localePath('captioner')"
+      class="btn btn-light d-none d-sm-block position-fixed py-md-3 px-3 px-md-4" style="z-index: 2; right: 0; top: 0;"
+      role="tab" active-class>
       <fa icon="times" size="2x" />
     </router-link>
     <!-- xs navbar -->
-    <nav
-      class="d-sm-none navbar sticky-top navbar-light bg-primary pr-2"
-      :class="{ 'pl-2': showBackButton }"
-      style="z-index: 1025;"
-    >
+    <nav class="d-sm-none navbar sticky-top navbar-light bg-primary pr-2" :class="{ 'pl-2': showBackButton }"
+      style="z-index: 1025;">
       <div class="mr-auto">
-        <router-link
-          to="/captioner/settings"
-          class="btn btn-primary mr-2"
-          v-if="showBackButton"
-        >
+        <router-link to="/captioner/settings" class="btn btn-primary mr-2" v-if="showBackButton">
           <fa icon="arrow-left" />
         </router-link>
-        <div
-          class="navbar-text font-weight-bold"
-          style="position: relative; top: 2px;"
-        >
+        <div class="navbar-text font-weight-bold" style="position: relative; top: 2px;">
           {{ navbarTitle }}
         </div>
       </div>
@@ -42,27 +22,18 @@
     </nav>
     <div class="row mx-0" style="min-height: 100%;">
       <!-- xs navigation -->
-      <div
-        :hidden="showBackButton"
-        class="d-sm-none col p-0 bg-white pb-5 mb-3"
-      >
+      <div :hidden="showBackButton" class="d-sm-none col p-0 bg-white pb-5 mb-3">
         <!--  pb-5 mb-3 for bottom navbar space -->
         <b-list-group flush>
-          <b-list-group-item
-            v-for="({ name, to, icon }, index) in settingsPages"
-            :key="index"
-            :to="to"
-            ><fa :icon="icon" class="mr-1" fixed-width />
-            {{ name }}</b-list-group-item
-          >
+          <b-list-group-item v-for="({ name, to, icon }, index) in settingsPages" :key="index" :to="to">
+            <fa :icon="icon" class="mr-1" fixed-width />
+            {{ name }}
+          </b-list-group-item>
         </b-list-group>
       </div>
 
       <!-- non-xs navigation -->
-      <div
-        class="d-none d-sm-block col-sm-4 py-5 pr-md-4 pr-xl-5 bg-primary"
-        style="min-height: 100%;"
-      >
+      <div class="d-none d-sm-block col-sm-4 py-5 pr-md-4 pr-xl-5 bg-primary" style="min-height: 100%;">
         <div class="row h-100">
           <div class="col-lg-9 col-xl-7 ml-auto mb-5">
             <div class="position-sticky" style="top: 20px;">
@@ -71,13 +42,8 @@
               </h2>
               <nav>
                 <b-nav vertical pills>
-                  <b-nav-item
-                    v-for="({ name, to, icon }, index) in settingsPages"
-                    :key="index"
-                    active-class="active"
-                    :to="to"
-                    link-classes="d-flex align-items-center"
-                  >
+                  <b-nav-item v-for="({ name, to, icon }, index) in settingsPages" :key="index" active-class="active"
+                    :to="to" link-classes="d-flex align-items-center">
                     <fa :icon="icon" class="mr-2" size="lg" fixed-width />
                     <span>{{ name }}</span>
                   </b-nav-item>
@@ -87,10 +53,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="col-sm-8 pt-sm-5 pb-sm-5 pl-md-4 pl-xl-5 bg-light"
-        :class="{ 'd-none d-sm-flex': !showBackButton }"
-      >
+      <div class="col-sm-8 pt-sm-5 pb-sm-5 pl-md-4 pl-xl-5 bg-light" :class="{ 'd-none d-sm-flex': !showBackButton }">
         <div class="row pb-5 pt-4 pt-sm-0">
           <!-- pb-5 here adds bottom padding to clear the fixed navbar. pt-4 is extra for top navbar on xs. -->
           <div class="col-lg-10 col-xl-9 mr-auto">
@@ -98,18 +61,11 @@
               {{ navbarTitle }}
             </h2>
             <transition name="fade">
-              <div
-                class="form-inline alert alert-secondary"
-                v-if="$store.state.user.signedIn === false"
-              >
+              <div class="form-inline alert alert-secondary" v-if="$store.state.user.signedIn === false">
                 Sign in to save your settings to your account.
                 <div class="w-100 d-md-none"></div>
-                <b-button
-                  :to="localePath('captioner-sign-in')"
-                  size="sm"
-                  class="p-2 px-3 ml-md-auto mt-2 mt-md-0 d-block"
-                  variant="secondary"
-                >
+                <b-button :to="localePath('captioner-sign-in')" size="sm" class="p-2 px-3 ml-md-auto mt-2 mt-md-0 d-block"
+                  variant="secondary">
                   <fa icon="user-circle" class="mr-2" />Sign In
                 </b-button>
               </div>
@@ -152,7 +108,7 @@ export default {
     BBadge,
     BButton,
   },
-  data: function() {
+  data: function () {
     return {
       logTimeRemainingMinutes: '00',
       logTimeRemainingSeconds: '00',
@@ -171,16 +127,16 @@ export default {
           to: '/captioner/settings/appearance',
           icon: 'paint-brush',
         },
-        {
-          name: 'Channels',
-          to: '/captioner/settings/channels',
-          icon: 'satellite-dish',
-        },
-        {
-          name: 'Experiments',
-          to: '/captioner/settings/experiments',
-          icon: 'flask',
-        },
+        /*         {
+                  name: 'Channels',
+                  to: '/captioner/settings/channels',
+                  icon: 'satellite-dish',
+                }, */
+        /*         {
+                  name: 'Experiments',
+                  to: '/captioner/settings/experiments',
+                  icon: 'flask',
+                }, */
         {
           name: 'Language',
           to: '/captioner/settings/language',
@@ -199,14 +155,14 @@ export default {
       ],
     };
   },
-  mounted: function() {
+  mounted: function () {
     let self = this;
     this.escShortcut = new Combokeys(document.documentElement);
-    this.escShortcut.bind('esc', function() {
+    this.escShortcut.bind('esc', function () {
       self.$router.push('/captioner');
     });
   },
-  beforeDestroy: function() {
+  beforeDestroy: function () {
     if (this.escShortcut) {
       this.escShortcut.detach();
     }
@@ -224,19 +180,19 @@ export default {
     },
   },
   computed: {
-    currentlyOnExperiments: function() {
+    currentlyOnExperiments: function () {
       return this.$route.path === '/captioner/settings/experiments';
     },
-    experiments: function() {
+    experiments: function () {
       return this.$store.state.settings.exp;
     },
-    showBackButton: function() {
+    showBackButton: function () {
       return this.$route.path !== '/captioner/settings';
     },
-    navbarTitle: function() {
+    navbarTitle: function () {
       return this.$store.state.settingsPageTitle || '';
     },
-    largerLayout: function() {
+    largerLayout: function () {
       return this.$store.state.settings.controls.layout.larger;
     },
   },
