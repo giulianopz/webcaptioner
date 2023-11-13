@@ -1,12 +1,9 @@
 require('dotenv').config();
 
-import serveStatic from 'serve-static';
-import path from 'path';
 import redirectSSL from 'redirect-ssl';
 import healthCheckMiddleware from './middleware/server/health-check.js';
 import sourcemapMiddleware from './middleware/server/sourcemaps.js';
 import wwwRedirectMiddleware from './server/middleware/wwwRedirect.js';
-// import redirectRules from './redirects';
 
 module.exports = {
   server: {
@@ -273,10 +270,6 @@ module.exports = {
     {
       path: '/feedback',
       handler: '~/middleware/server/feedback.js',
-    },
-    {
-      path: '/',
-      handler: serveStatic(path.resolve(__dirname + '/../static-site/public')),
     },
   ],
 };
