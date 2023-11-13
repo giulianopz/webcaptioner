@@ -6,7 +6,8 @@
             "config": {
                 "serverFiles": [
                     "middleware/**",
-                    "server/middleware/**"
+                    "server/middleware/**",
+                    "api/**"
                 ]
             }
         }
