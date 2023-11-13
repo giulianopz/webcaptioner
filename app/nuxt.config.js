@@ -6,7 +6,6 @@ import redirectSSL from 'redirect-ssl';
 import healthCheckMiddleware from './middleware/server/health-check.js';
 import sourcemapMiddleware from './middleware/server/sourcemaps.js';
 import wwwRedirectMiddleware from './server/middleware/wwwRedirect.js';
-import wsServer from './socket.io/server';
 // import redirectRules from './redirects';
 
 module.exports = {
