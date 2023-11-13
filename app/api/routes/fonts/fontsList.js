@@ -2,7 +2,7 @@ const axios = require('axios');
 const nodeCache = require('node-cache');
 const cache = new nodeCache();
 
-module.exports.getFonts = async function() {
+module.exports.getFonts = async function () {
   const cachedFonts = cache.get('fonts');
   if (cachedFonts) {
     return cachedFonts;
@@ -12,7 +12,7 @@ module.exports.getFonts = async function() {
     data: { items },
   } = await axios.get(
     'https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=' +
-      process.env.GOOGLE_FONTS_API_KEY
+    process.env.GOOGLE_FONTS_API_KEY
   );
 
   items = items.map((font) => {

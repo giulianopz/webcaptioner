@@ -1,8 +1,16 @@
 version: '3'
 
 tasks:
+
   serve:
     desc: "run webcaptioner locally"
     dir: '{{.USER_WORKING_DIR}}/app'
     cmds:
     - npm run dev
+  
+  deploy:
+    dir: '{{.USER_WORKING_DIR}}/app'
+    cmds:
+    - npm i
+    - npm run build
+    - npm run start
