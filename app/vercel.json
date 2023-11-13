@@ -5,7 +5,8 @@
             "use": "@nuxtjs/vercel-builder",
             "config": {
                 "serverFiles": [
-                    "middleware/**"
+                    "middleware/**",
+                    "server/middleware/**"
                 ]
             }
         }
