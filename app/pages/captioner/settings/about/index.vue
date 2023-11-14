@@ -27,16 +27,13 @@
     </div>
     <hr class="my-4">
 
-    <!--     <h2>{{ $t('settings.about.whatsNew') }}</h2>
-    <whats-new /> -->
-
     Hi,
     <br><br>
     This is a stripped-down version of the original web service created by <a href="https://curtgrimes.com/">Curt
       Grimes</a> who stopped maintaining Web Captioner on October 31, 2023, generously donating its source code to the
     community.
     <br><br>
-    I resumed this app to offer its most useful feature: a simple interface to the Web Speech API of Google Chrome for
+    I resumed this app to offer its most valuable feature: a simple interface to the Web Speech API of Google Chrome for
     translating speech to text for free, optionally saving the transcript to a file.
     <br>
     This single feature is essential for many people, especially those who are deaf or hard of hearing
@@ -48,22 +45,9 @@
     I'm not a JS person, so your help is more than welcome here.
     If you can, please consider contributing to the project hosted on <a
       href="https://github.com/giulianopz/webcaptioner">GitHub</a>.
+    If you find Web Captioner useful, please find the time to say 'thank you' to its <a
+      href="mailto:contact@curtgrimes.com">author</a>.
     <br><br>
-    > <a href="https://github.com/giulianopz">giulianopz</a>
+    - <a href="https://github.com/giulianopz">giulianopz</a>
   </div>
 </template>
-
-
-<!-- <script>
-import whatsNew from '~/components/WhatsNew.vue';
-
-export default {
-  middleware: ['settings-meta'],
-  meta: {
-    settingsPageTitleKey: 'settings.about.about',
-  },
-  components: {
-    whatsNew,
-  },
-};
-</script> -->

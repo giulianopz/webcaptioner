@@ -1,15 +1,8 @@
 <template>
   <div>
     <hr />
-    <label for="censor-profane-language" class="mb-0"
-      >Censor profane language</label
-    >
-    <b-form-checkbox
-      id="censor-profane-language"
-      v-model="censor"
-      switch
-      class="float-right"
-    ></b-form-checkbox>
+    <label for="censor-profane-language" class="mb-0">Censor profane language</label>
+    <b-form-checkbox id="censor-profane-language" v-model="censor" switch class="float-right"></b-form-checkbox>
     <div class="clearfix"></div>
     <transition name="fade-in">
       <div v-if="censor">
@@ -19,37 +12,25 @@
               <span class="pr-2">{{
                 $t('settings.censor.replaceCensoredWordsWith')
               }}</span>
-              <select
-                v-model="censorReplaceWith"
-                class="form-control form-control-sm"
-                id="volumeMeterSensitivity"
-              >
+              <select v-model="censorReplaceWith" class="form-control form-control-sm" id="volumeMeterSensitivity">
                 <option value="nothing">{{
                   $t('settings.censor.nothing')
                 }}</option>
-                <option value="asterisks"
-                  >{{ $t('settings.censor.asterisks') }} (*****)</option
-                >
+                <option value="asterisks">{{ $t('settings.censor.asterisks') }} (*****)</option>
               </select>
             </label>
           </div>
         </div>
         <p class="mb-0 small text-muted mt-2">
           {{ $t('settings.censor.usEnglishOnly') }}
-          <i18n
-            path="settings.censor.censorProfaneLanguageDescription.text"
-            tag="span"
-          >
+          <i18n path="settings.censor.censorProfaneLanguageDescription.text" tag="span">
             <template v-slot:seeThisList>
-              <a
-                href="https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words"
-                target="_blank"
-                >{{
+              <a href="https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words"
+                target="_blank">{{
                   $t(
                     'settings.censor.censorProfaneLanguageDescription.seeThisList'
                   )
-                }}</a
-              >
+                }}</a>
             </template>
             <template v-slot:useWordReplacements>
               <router-link to="word-replacements">{{
@@ -66,10 +47,9 @@
         Captioner runs on currently does not give an option to completely
         disable censorship. Web Captioner applies a heuristic to uncensor words
         that are returned from this service that still appear to be censored. If
-        you are running into issues with words being censored even when
-        censorship is off,
-        <a href="https://feedback.webcaptioner.com/">leave feedback</a> or
-        <a href="https://m.me/webcaptioner">contact Web Captioner</a>.
+        you are running into troubles with words being censored even when
+        censorship is off, open a issue on
+        <a href="https://github.com/giulianopz/webcaptioner/issues">GitHub</a>.
       </p>
     </transition>
     <div class="clearfix"></div>
@@ -79,77 +59,45 @@
         Caption speed
       </label>
       <div class="d-flex">
-        <div
-          class="small font-weight-bold text-right"
-          style="white-space: nowrap;"
-        >
-          <a
-            href="javascript:void(0)"
-            @click="captionSpeed = '0'"
-            style="transition: color 0.5s"
-            :class="{
-              'text-secondary': captionSpeed === '0',
-              'text-muted': captionSpeed !== '0',
-            }"
-          >
+        <div class="small font-weight-bold text-right" style="white-space: nowrap;">
+          <a href="javascript:void(0)" @click="captionSpeed = '0'" style="transition: color 0.5s" :class="{
+            'text-secondary': captionSpeed === '0',
+            'text-muted': captionSpeed !== '0',
+          }">
             Real-time
           </a>
         </div>
         <div class="mx-auto w-100 px-2">
-          <b-form-input
-            id="adjust-speed-accuracy"
-            v-model="captionSpeed"
-            type="range"
-            min="0"
-            max="2"
-            step="1"
-          ></b-form-input>
+          <b-form-input id="adjust-speed-accuracy" v-model="captionSpeed" type="range" min="0" max="2"
+            step="1"></b-form-input>
         </div>
-        <div
-          class="small font-weight-bold text-left"
-          style="white-space: nowrap; "
-        >
-          <a
-            href="javascript:void(0)"
-            @click="captionSpeed = '2'"
-            style="transition: color 0.5s"
-            :class="{
-              'text-secondary': captionSpeed !== '0',
-              'text-muted': captionSpeed === '0',
-            }"
-          >
+        <div class="small font-weight-bold text-left" style="white-space: nowrap; ">
+          <a href="javascript:void(0)" @click="captionSpeed = '2'" style="transition: color 0.5s" :class="{
+            'text-secondary': captionSpeed !== '0',
+            'text-muted': captionSpeed === '0',
+          }">
             More accurate
           </a>
         </div>
       </div>
       <div class="row small">
         <div class="col-6">
-          <a
-            href="javascript:void(0)"
-            @click="captionSpeed = '0'"
-            class="d-block"
-            style="text-decoration:none;transition: color 0.5s"
-            :class="{
+          <a href="javascript:void(0)" @click="captionSpeed = '0'" class="d-block"
+            style="text-decoration:none;transition: color 0.5s" :class="{
               'text-info': captionSpeed === '0',
               'text-muted': captionSpeed !== '0',
-            }"
-          >
+            }">
             Words are displayed as soon as possible. The words on the screen may
             change shortly after they are spoken while Web Captioner figures out
             the context of the current phrase.
           </a>
         </div>
         <div class="col-6 text-right">
-          <a
-            href="javascript:void(0)"
-            @click="captionSpeed = '2'"
-            class="d-block"
-            style="text-decoration:none;transition: color 0.5s"
-            :class="{
+          <a href="javascript:void(0)" @click="captionSpeed = '2'" class="d-block"
+            style="text-decoration:none;transition: color 0.5s" :class="{
               'text-info': captionSpeed !== '0',
               'text-muted': captionSpeed === '0',
-            }"
-          >
+            }">
             <span v-if="captionSpeed === '0'">
               Words are displayed after they remain unchanged for a period of
               time.
@@ -167,23 +115,14 @@
     <label for="show-volume-meter" class="mb-0">
       Show volume meter when volume is too quiet or loud
     </label>
-    <b-form-checkbox
-      id="show-volume-meter"
-      v-model="volumeMeterShow"
-      switch
-      class="float-right"
-    ></b-form-checkbox>
+    <b-form-checkbox id="show-volume-meter" v-model="volumeMeterShow" switch class="float-right"></b-form-checkbox>
     <div class="clearfix"></div>
     <transition name="fade-in">
       <div class="form-inline small mt-1" v-if="volumeMeterShow">
         <div class="form-group">
           <label>
             <span class="pr-2">Sensitivity</span>
-            <select
-              v-model="volumeMeterSensitivity"
-              class="form-control form-control-sm"
-              id="volumeMeterSensitivity"
-            >
+            <select v-model="volumeMeterSensitivity" class="form-control form-control-sm" id="volumeMeterSensitivity">
               <option value="high">High (default)</option>
               <option value="low">Low</option>
             </select>
@@ -196,39 +135,20 @@
     <label for="large-navigation-bar-buttons" class="mb-0">
       Use large navigation bar buttons
     </label>
-    <b-form-checkbox
-      id="large-navigation-bar-buttons"
-      v-model="largerLayout"
-      switch
-      class="float-right"
-    ></b-form-checkbox>
+    <b-form-checkbox id="large-navigation-bar-buttons" v-model="largerLayout" switch
+      class="float-right"></b-form-checkbox>
     <div class="clearfix"></div>
     <hr />
-    <label
-      for="action-after-no-audio"
-      class="mb-0 form-group form-inline float-left"
-    >
+    <label for="action-after-no-audio" class="mb-0 form-group form-inline float-left">
       After
-      <select
-        class="form-control form-control-sm mx-2"
-        v-model="afterNoAudioSeconds"
-      >
-        <option
-          v-for="val in [1, 2, 3, 4, 5, 10, 20, 30]"
-          :key="val"
-          :value="val"
-          >{{ val }}</option
-        >
+      <select class="form-control form-control-sm mx-2" v-model="afterNoAudioSeconds">
+        <option v-for="val in [1, 2, 3, 4, 5, 10, 20, 30]" :key="val" :value="val">{{ val }}</option>
       </select>
       <span v-if="afterNoAudioSeconds === 1">second&nbsp;</span>
       <span v-else>seconds&nbsp;</span>of no audio while captioning
     </label>
     <div class="form-group float-right mb-0">
-      <select
-        class="form-control form-control-sm"
-        id="action-after-no-audio"
-        v-model="afterNoAudioAction"
-      >
+      <select class="form-control form-control-sm" id="action-after-no-audio" v-model="afterNoAudioAction">
         <option value="doNothing">Do nothing</option>
         <option value="lineBreak1">Add 1 line break</option>
         <option value="lineBreak2">Add 2 line breaks</option>
@@ -239,15 +159,9 @@
     </div>
     <div class="clearfix"></div>
     <hr />
-    <label for="always-autostart-on-load" class="mb-0"
-      >Always automatically start captioning on page load</label
-    >
-    <b-form-checkbox
-      id="always-autostart-on-load"
-      v-model="alwaysAutostartOnLoad"
-      switch
-      class="float-right"
-    ></b-form-checkbox>
+    <label for="always-autostart-on-load" class="mb-0">Always automatically start captioning on page load</label>
+    <b-form-checkbox id="always-autostart-on-load" v-model="alwaysAutostartOnLoad" switch
+      class="float-right"></b-form-checkbox>
     <div class="clearfix"></div>
     <p class="small mb-1 mt-1">
       You'll need to grant Web Captioner permission to use your microphone the
@@ -383,14 +297,14 @@ export default {
   meta: {
     settingsPageTitleKey: 'settings.general',
   },
-  data: function() {
+  data: function () {
     return {
       largerPreview: false,
       isMac: false,
       autostartURL: null,
     };
   },
-  mounted: function() {
+  mounted: function () {
     // This has to happen client-side so we put it in mounted()
     this.autostartURL = window.location.origin + '/captioner?autostart';
 
@@ -499,13 +413,13 @@ export default {
         this.$store.commit('SET_ALWAYS_AUTOSTART_ON_LOAD', { on });
       },
     },
-    backgroundColor: function() {
+    backgroundColor: function () {
       return this.$store.state.settings.appearance.background.color;
     },
-    alignmentPadding: function() {
+    alignmentPadding: function () {
       return this.$store.state.settings.appearance.text.alignment.padding;
     },
-    previewWrapTextPositionClass: function() {
+    previewWrapTextPositionClass: function () {
       return {
         /* Vertical alignments */
         'align-items-start': ['full', 'top'].includes(this.alignmentVertical),
@@ -515,10 +429,10 @@ export default {
         ),
       };
     },
-    textColor: function() {
+    textColor: function () {
       return this.$store.state.settings.appearance.text.textColor;
     },
-    previewTextPositionClass: function() {
+    previewTextPositionClass: function () {
       return {
         /* Horizontal alignments */
         'w-100 mx-0': this.alignmentHorizontal == 'full',

@@ -193,12 +193,11 @@ export default {
       spoken: 'Spoken Language',
       spokenDescription: {
         text:
-          'Web Captioner will recognize speech in this language. Learn more about {supportedLanguagesAndDialects}.',
+          'Web Captioner will recognize speech in the language you select. Learn more about {supportedLanguagesAndDialects}.',
         supportedLanguagesAndDialects: 'supported languages and dialects',
       },
       list: {
         'en-US': 'English (United States)',
-        'pt-BR': 'Portuguese (Brazil)',
       },
     },
     remoteDisplays: {

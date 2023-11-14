@@ -101,11 +101,6 @@ module.exports = {
             file: 'en-US.js',
             iso: 'en-US',
           },
-          // {
-          //   code: 'pt-BR',
-          //   file: 'pt-BR.js',
-          //   iso: 'pt-BR',
-          // },
         ],
         lazy: true,
         langDir: 'lang/',

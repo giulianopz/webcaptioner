@@ -2,7 +2,7 @@
   <div class="settings-language-view">
     <i18n path="settings.language.spokenDescription.text" tag="p">
       <template v-slot:supportedLanguagesAndDialects>
-        <a href="/help/general/supported-languages/" target="_blank">{{
+        <a href="https://cloud.google.com/text-to-speech/docs/voices" target="_blank">{{
           $t(
             'settings.language.spokenDescription.supportedLanguagesAndDialects'
           )
@@ -11,42 +11,22 @@
     </i18n>
     <p>
       Web Captioner currently doesn't translate between different languages in
-      real-time. If this is something you would like to see, vote up this
-      <a
-        href="https://feedback.webcaptioner.com/posts/5/automatically-translate-into-another-language"
-        target="_blank"
-        >feedback submission on translation</a
-      >.
+      real-time.
     </p>
     <div class="row mb-3">
       <div class="col-sm-7" :class="{ 'col-9': showClearButton }">
-        <input
-          ref="search"
-          type="text"
-          v-model="searchQuery"
-          :placeholder="$t('common.search')"
-          class="form-control"
-        />
+        <input ref="search" type="text" v-model="searchQuery" :placeholder="$t('common.search')" class="form-control" />
       </div>
       <div class="col-3 col-sm-3 col-lg-2 pl-0" v-if="showClearButton">
-        <button
-          v-bind:class="{ show: showClearButton, invisible: !showClearButton }"
-          class="btn btn-sm btn-outline-dark fade w-100"
-          type="button"
-          @click="clearSearch()"
-        >
+        <button v-bind:class="{ show: showClearButton, invisible: !showClearButton }"
+          class="btn btn-sm btn-outline-dark fade w-100" type="button" @click="clearSearch()">
           {{ $t('common.clear') }}
         </button>
       </div>
     </div>
     <div class="list-group">
-      <button
-        v-for="locale in filteredLocales"
-        v-bind:key="locale.code"
-        @click="localeFrom = locale.code"
-        class="list-group-item list-group-item-action px-0"
-        v-bind:class="{ active: localeFrom == locale.code }"
-      >
+      <button v-for="locale in filteredLocales" v-bind:key="locale.code" @click="localeFrom = locale.code"
+        class="list-group-item list-group-item-action px-0" v-bind:class="{ active: localeFrom == locale.code }">
         <span class="row m-0">
           <span class="col-1 text-center">
             <span class="d-block">
@@ -55,12 +35,8 @@
           </span>
           <span class="col-10 col-sm-9 pl-md-0">
             {{ locale.nameEnglish }}
-            <span
-              v-if="locale.nameEnglish !== locale.name"
-              class="small"
-              :class="localeFrom == locale.code ? 'text-primary' : 'text-muted'"
-              >&middot; {{ locale.name }}</span
-            >
+            <span v-if="locale.nameEnglish !== locale.name" class="small"
+              :class="localeFrom == locale.code ? 'text-primary' : 'text-muted'">&middot; {{ locale.name }}</span>
           </span>
         </span>
       </button>
@@ -83,32 +59,32 @@ export default {
   meta: {
     settingsPageTitleKey: 'settings.language.language',
   },
-  created: function() {
+  created: function () {
     if (!this.$store.state.settings.locale.from) {
       this.$forceUpdate();
     }
   },
-  data: function() {
+  data: function () {
     return {
       searchQuery: '',
     };
   },
   methods: {
-    clearSearch: function() {
+    clearSearch: function () {
       this.searchQuery = '';
       this.$refs.search.focus();
     },
   },
   computed: {
-    showClearButton: function() {
+    showClearButton: function () {
       return this.searchQuery !== '';
     },
-    selectedLocale: function() {
+    selectedLocale: function () {
       return locales.find((l) => {
         return l.code == this.localeFrom;
       });
     },
-    filteredLocales: function() {
+    filteredLocales: function () {
       return locales.filter((l) => {
         var self = this;
         function includesSearchQuery(string) {
