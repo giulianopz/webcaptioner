@@ -68,10 +68,10 @@
         <fa icon="trash-alt" />
       </b-button>
     </b-button-group>
-    <!--     <b-button block size="sm" variant="secondary" :to="localePath('captioner-settings')" @click="$emit('dismiss')">
+    <b-button block size="sm" variant="secondary" :to="localePath('captioner-settings')" @click="$emit('dismiss')">
       <fa icon="cog" class="mr-1" />
       {{ $t('navbar.menu.settings') }}
-    </b-button> -->
+    </b-button>
     <div v-if="$store.state.user.signedIn === false" class="pt-1" style="line-height:1.25rem">
       <!-- Not signed in -->
       <hr />
