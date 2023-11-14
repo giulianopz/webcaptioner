@@ -8,7 +8,6 @@ import wwwRedirectMiddleware from './server/middleware/wwwRedirect.js';
 module.exports = {
   server: {
     host: '0', // default: localhost
-    port: '443'
   },
   head: {
     title: 'Web Captioner',
