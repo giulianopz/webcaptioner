@@ -1,11 +1,7 @@
 <template>
   <div>
     <a href="https://www.vmix.com/" target="_blank">
-      <img
-        :src="channel.iconPath"
-        class="w-100 col-6 d-block mx-auto mt-2 mb-3"
-        alt="vMix"
-      />
+      <img :src="channel.iconPath" class="w-100 col-6 d-block mx-auto mt-2 mb-3" alt="vMix" />
     </a>
     <p class="lead text-center">
       Send real-time captions to
@@ -19,9 +15,7 @@
       </li>
       <li>
         Download
-        <a href="/web-captioner-title.xaml" target="_blank"
-          >this title template</a
-        >
+        <a href="/web-captioner-title.xaml" target="_blank">this title template</a>
         that will display captions in vMix. Import this title template into vMix
         by going to Add Input > Title/XAML. In the upper right of the Input
         Select window, click Browse... and select the title template file you
@@ -39,10 +33,7 @@
       </li>
     </ol>
     <div class="card card-body">
-      <div
-        v-if="savedChannel && savedChannel.error"
-        class="alert alert-warning small"
-      >
+      <div v-if="savedChannel && savedChannel.error" class="alert alert-warning small">
         <strong class="text-danger">
           <fa icon="exclamation-triangle" /> Error:
         </strong>
@@ -56,29 +47,15 @@
       </div>
       <label for="vmixAddress" class="small">vMix Web Site Address</label>
       <b-input-group>
-        <b-form-input
-          id="vmixAddress"
-          name="vmixAddress"
-          v-model="vmixAddressFromUser"
-          autofocus
-          class="form-control"
-          type="url"
-          placeholder="vMix Web Site Address"
-          :disabled="checkingVmixAddress"
-        ></b-form-input>
+        <b-form-input id="vmixAddress" name="vmixAddress" v-model="vmixAddressFromUser" autofocus class="form-control"
+          type="url" placeholder="vMix Web Site Address" :disabled="checkingVmixAddress"></b-form-input>
         <b-input-group-append>
-          <b-button
-            @click="checkVmixAddress()"
-            :disabled="!vmixAddress || checkingVmixAddress"
-          >
+          <b-button @click="checkVmixAddress()" :disabled="!vmixAddress || checkingVmixAddress">
             {{ checkingVmixAddress ? 'Checking...' : 'Check' }}
           </b-button>
         </b-input-group-append>
       </b-input-group>
-      <p
-        v-if="checkingVmixAddressSuccess"
-        class="mb-0 text-success small mt-2 font-weight-bold"
-      >
+      <p v-if="checkingVmixAddressSuccess" class="mb-0 text-success small mt-2 font-weight-bold">
         Successfully connected!
       </p>
     </div>
@@ -145,7 +122,7 @@ export default {
             // if it doesn't respond quickly enough, reject any future response and assume we can't connect
             new Promise((resolve) => setTimeout(resolve, 1500)),
           ]);
-        } catch (e) {}
+        } catch (e) { console.log(e) }
 
         if (!vmixResponse) {
           // Try localhost instead
@@ -156,7 +133,7 @@ export default {
               // if it doesn't respond quickly enough, reject any future response and assume we can't connect
               new Promise((resolve) => setTimeout(resolve, 1500)),
             ]);
-          } catch (e) {}
+          } catch (e) { console.log(e) }
 
           if (vmixResponse) {
             // That worked -- use localhost instead (silently -- don't show any indiciation in the UI)

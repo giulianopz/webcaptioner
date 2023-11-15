@@ -14,7 +14,7 @@ export default {
       required: false,
     },
   },
-  data: function() {
+  data: function () {
     return {
       font: null,
     };
@@ -39,7 +39,10 @@ export default {
         this.font = await this.$axios.$get('/api/fonts/' + this.fontFamily);
       } catch (e) {
         // Default font
-        this.font = await this.$axios.$get('/api/fonts/Cousine');
+        console.log(e)
+        this.font = await this.$axios.$get('/api/fonts/Cousine').catch(function (error) {
+          console.log(error.toJSON());
+        });
       }
     },
   },
@@ -50,9 +53,8 @@ export default {
       }
 
       if (this.font.googleFont) {
-        return `https://fonts.googleapis.com/css?family=${
-          this.font.fontFamily
-        }:${this.fontVariant || this.font.variants[0]}`;
+        return `https://fonts.googleapis.com/css?family=${this.font.fontFamily
+          }:${this.fontVariant || this.font.variants[0]}`;
       } else {
         // Local font (like OpenDyslexic)
         return `/static/fonts/${this.font.fontFamily}.css`;

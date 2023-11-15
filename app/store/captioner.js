@@ -153,7 +153,7 @@ export const actions = {
 
     try {
       speechRecognizer.start();
-    } catch (e) {}
+    } catch (e) { }
     commit('SET_WAITING_FOR_INITIAL_TRANSCRIPT', {
       waitingForInitial: true,
     });
@@ -166,7 +166,7 @@ export const actions = {
       });
     }, 200);
 
-    speechRecognizer.onstart = function() {
+    speechRecognizer.onstart = function () {
       commit('SET_CAPTIONER_ON', {
         omitFromGoogleAnalytics: true,
       });
@@ -180,7 +180,7 @@ export const actions = {
       }
 
       if (!keepAliveInterval) {
-        keepAliveInterval = setInterval(function() {
+        keepAliveInterval = setInterval(function () {
           if (state.shouldBeOn) {
             // Currently captioning
             let now = Date.now();
@@ -191,7 +191,7 @@ export const actions = {
             if (
               timeSinceLastResult >= SILENT_RESTART_AFTER_NO_RESULTS_MS &&
               timeSinceLastStart >
-                SILENT_RESTART_WAIT_MS_AFTER_STARTING_CAPTIONING &&
+              SILENT_RESTART_WAIT_MS_AFTER_STARTING_CAPTIONING &&
               // && !state.transcript.waitingForInitial
               (!state.volume.tooLow ||
                 timeSinceLastResult > SILENT_RESTART_AFTER_NO_RESULTS_MS) &&
@@ -207,7 +207,7 @@ export const actions = {
             if (
               state.lastUpdate &&
               timeSinceLastResult >=
-                rootState.settings.afterNoAudio.seconds * 1000 &&
+              rootState.settings.afterNoAudio.seconds * 1000 &&
               !didMakeAfterNoAudioAction
             ) {
               switch (rootState.settings.afterNoAudio.action) {
@@ -262,7 +262,7 @@ export const actions = {
       }
     };
 
-    speechRecognizer.onend = function(e) {
+    speechRecognizer.onend = function (e) {
       commit('SET_CAPTIONER_OFF', {
         omitFromGoogleAnalytics: true,
       });
@@ -273,7 +273,7 @@ export const actions = {
       }
     };
 
-    speechRecognizer.onresult = function(event) {
+    speechRecognizer.onresult = function (event) {
       // Reset this flag for the next future pause
       didMakeAfterNoAudioAction = false;
 
@@ -333,7 +333,7 @@ export const actions = {
       }
     };
 
-    speechRecognizer.onerror = function(error) {
+    speechRecognizer.onerror = function (error) {
       clearTimeout(microphonePermissionNeededTimeout);
 
       if (event.error == 'not-allowed') {
@@ -359,8 +359,10 @@ export const actions = {
     };
   },
 
-  async startDemo({}) {
-    const demoTimings = await this.$axios.$get('/static/demo-transcript.json');
+  async startDemo({ }) {
+    const demoTimings = await this.$axios.$get('/static/demo-transcript.json').catch(function (error) {
+      console.log(error.toJSON());
+    });
 
     let startPlaybackTime = Date.now();
     let lastPlayedIndex = 0;
@@ -441,7 +443,7 @@ export const actions = {
     }
 
     if (speechRecognizer && state.on) {
-      const restartSpeechRecognizer = function(event) {
+      const restartSpeechRecognizer = function (event) {
         speechRecognizer.removeEventListener(
           'end',
           restartSpeechRecognizer,
@@ -449,7 +451,7 @@ export const actions = {
         ); // only do it once
         try {
           speechRecognizer.start();
-        } catch (e) {}
+        } catch (e) { }
       };
       speechRecognizer.addEventListener('end', restartSpeechRecognizer, false);
       speechRecognizer.abort();
@@ -477,7 +479,7 @@ export const actions = {
             if (
               now >
               state.transcript.cursorable[i][j].firstSeen +
-                Math.max(rootState.settings.stabilizedThresholdMs, 500) // hardcoded minimum
+              Math.max(rootState.settings.stabilizedThresholdMs, 500) // hardcoded minimum
             ) {
               // This word is stable
               Vue.set(state.transcript.cursorable[i][j], 'stable', true);
@@ -515,18 +517,18 @@ export const actions = {
 
       ...(rootState.settings.censor.on
         ? // Add profanity censor
-          [
-            {
-              from: censoredProfanity.join(','),
-              // 'asterisks',
-              to:
-                rootState.settings.censor.replaceWith === 'nothing'
-                  ? ''
-                  : '******',
-            },
-          ]
+        [
+          {
+            from: censoredProfanity.join(','),
+            // 'asterisks',
+            to:
+              rootState.settings.censor.replaceWith === 'nothing'
+                ? ''
+                : '******',
+          },
+        ]
         : // Apply a heuristic to attempt to fully uncensor speech
-          profanityUncensor),
+        profanityUncensor),
     ];
 
     // Generate regex
@@ -544,7 +546,7 @@ export const actions = {
     });
   },
 
-  trackWordCount({}, { wordCount }) {
+  trackWordCount({ }, { wordCount }) {
     if (wordCount > 0) {
       Vue.$ga.event({
         eventCategory: 'recognition',

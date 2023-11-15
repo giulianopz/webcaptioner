@@ -1,19 +1,14 @@
 <template>
   <div>
-    <b-alert
-      variant="danger"
-      dismissible
-      :show="somethingWentWrong"
-    >Something went wrong. Please try again.</b-alert>
+    <b-alert variant="danger" dismissible :show="somethingWentWrong">Something went wrong. Please try again.</b-alert>
     <p>
       Automatically save transcripts to Dropbox. Transcripts will be saved as text files in the folder
       <strong>Apps › Web Captioner</strong> in your Dropbox.
     </p>
     <b-alert variant="danger" dismissible :show="showHowToFinishDisconnectMessage">
       To finish disconnecting your Dropbox account,
-      <a
-        href="https://www.dropbox.com/account/connected_apps"
-      >visit your connected apps in Dropbox</a> and remove Web Captioner.
+      <a href="https://www.dropbox.com/account/connected_apps">visit your connected apps in Dropbox</a> and remove Web
+      Captioner.
     </b-alert>
     <transition name="fade">
       <div v-if="profileExists">
@@ -25,66 +20,42 @@
               </div>
               <div class="col-sm-9 col-lg-10">
                 <h4>Connected to Dropbox</h4>
-                <p class="mb-0">{{profile.name}}</p>
-                <p class="mb-0">{{profile.email}}</p>
+                <p class="mb-0">{{ profile.name }}</p>
+                <p class="mb-0">{{ profile.email }}</p>
               </div>
             </div>
           </div>
           <div class="card-footer d-flex">
-            <b-button
-              variant="danger"
-              size="sm"
-              class="ml-auto"
-              @click="revokeAuthToken()"
-              :disabled="revoking"
-            >
+            <b-button variant="danger" size="sm" class="ml-auto" @click="revokeAuthToken()" :disabled="revoking">
               <fa v-if="revoking" icon="spinner" spin />Disconnect
             </b-button>
           </div>
         </div>
         <h3>Recent Transcripts</h3>
-        <b-alert
-          variant="info"
-          :show="reachedFileCountLimit"
-        >You have a lot of files in your transcripts folder and you might not see all of them here. Go to your Dropbox to see them all.</b-alert>
+        <b-alert variant="info" :show="reachedFileCountLimit">You have a lot of files in your transcripts folder and you
+          might not see all of them here. Go to your Dropbox to see them all.</b-alert>
         <div v-if="loadingTranscripts">
           <fa icon="spinner" spin class="text-muted" size="2x" />
         </div>
         <div v-else-if="transcripts && transcripts.length === 0">
-          <b-alert
-            show
-            variant="light"
-          >Start captioning and transcripts will automatically be saved to your Dropbox.</b-alert>
+          <b-alert show variant="light">Start captioning and transcripts will automatically be saved to your
+            Dropbox.</b-alert>
         </div>
         <b-list-group v-else>
-          <b-list-group-item
-            v-for="(transcript, index) in transcripts"
-            :key="index"
-            class="py-0 pr-2"
-            :href="'https://www.dropbox.com/home/Apps/Web%20Captioner/Transcripts?preview=' + transcript.name"
-          >
+          <b-list-group-item v-for="(transcript, index) in transcripts" :key="index" class="py-0 pr-2"
+            :href="'https://www.dropbox.com/home/Apps/Web%20Captioner/Transcripts?preview=' + transcript.name">
             <div class="row">
-              <div class="col-6 col-md-6 py-3 font-weight-bold">{{transcript.name}}</div>
-              <div
-                class="d-none d-md-flex col-md-3 text-muted py-3"
-              >{{bytesToString(transcript.size)}}</div>
+              <div class="col-6 col-md-6 py-3 font-weight-bold">{{ transcript.name }}</div>
+              <div class="d-none d-md-flex col-md-3 text-muted py-3">{{ bytesToString(transcript.size) }}</div>
               <div class="col-6 col-md-3 d-flex">
-                <b-button
-                  class="ml-auto py-3 px-4 px-sm-3"
-                  variant="link"
+                <b-button class="ml-auto py-3 px-4 px-sm-3" variant="link"
                   :href="'/api/storage/dropbox/transcripts/' + transcript.name.replace('.txt', '') + '?accessToken=' + accessToken"
-                  v-b-tooltip.top
-                  title="Save to File"
-                >
+                  v-b-tooltip.top title="Save to File">
                   <fa icon="file-alt" />
                 </b-button>
-                <b-button
-                  class="py-3 px-4 px-sm-3"
-                  variant="link"
+                <b-button class="py-3 px-4 px-sm-3" variant="link"
                   :href="'https://www.dropbox.com/home/Apps/Web%20Captioner/Transcripts?preview=' + transcript.name"
-                  v-b-tooltip.top
-                  title="Open in Dropbox"
-                >
+                  v-b-tooltip.top title="Open in Dropbox">
                   <fa :icon="['fab', 'dropbox']" />
                 </b-button>
               </div>
@@ -93,12 +64,8 @@
         </b-list-group>
       </div>
       <div v-else>
-        <b-button
-          size="lg"
-          :disabled="loading"
-          href="/api/storage/dropbox/auth"
-          :variant="loading ? 'outline-secondary' : 'secondary'"
-        >
+        <b-button size="lg" :disabled="loading" href="/api/storage/dropbox/auth"
+          :variant="loading ? 'outline-secondary' : 'secondary'">
           <fa v-if="loading" spin icon="spinner" />
           <fa v-else :icon="['fab', 'dropbox']" />Connect to Dropbox
         </b-button>
@@ -132,7 +99,7 @@ export default {
   meta: {
     settingsPageTitle: 'Sync',
   },
-  data: function() {
+  data: function () {
     return {
       loading: true,
       somethingWentWrong: false,
@@ -148,7 +115,7 @@ export default {
       },
     };
   },
-  mounted: function() {
+  mounted: function () {
     if (this.$route.query.somethingWentWrong) {
       // Came back from oauth and something went wrong
       this.somethingWentWrong = true;
@@ -192,15 +159,15 @@ export default {
         this.$store.commit('SET_DROPBOX_ACCOUNT_ID', { accountId });
       },
     },
-    profileExists: function() {
+    profileExists: function () {
       return this.profile.name && this.profile.email;
     },
   },
   methods: {
-    bytesToString: function(bytes) {
+    bytesToString: function (bytes) {
       return bytesUtility(bytes, { unitSeparator: ' ' });
     },
-    revokeAuthToken: async function() {
+    revokeAuthToken: async function () {
       this.$ga.event({
         eventCategory: 'sync-dropbox',
         eventAction: 'disconnect',
@@ -215,9 +182,9 @@ export default {
         this.accountId = null;
         this.revoking = false;
         this.showHowToFinishDisconnectMessage = true;
-      } catch (e) {}
+      } catch (e) { console.log(e) }
     },
-    updateProfile: async function({ accessToken, accountId }) {
+    updateProfile: async function ({ accessToken, accountId }) {
       if (!accessToken || !accountId) {
         this.loading = false;
         return;
@@ -238,6 +205,7 @@ export default {
         }
         this.loading = false;
       } catch (e) {
+        console.log(e)
         // Unable to get profile
         this.resetProfile();
 
@@ -245,7 +213,7 @@ export default {
         this.accountId = null;
       }
     },
-    getTranscripts: async function({ accessToken, cursor }) {
+    getTranscripts: async function ({ accessToken, cursor }) {
       if (!this.accessToken) {
         return;
       }
@@ -255,7 +223,9 @@ export default {
       let { files, reachedFileCountLimit } = await this.$axios.$get(
         '/api/storage/dropbox/transcripts',
         { params: { accessToken, cursor } }
-      );
+      ).catch(function (error) {
+        console.log(error.toJSON());
+      });
 
       if (files) {
         this.transcripts = files;
@@ -263,7 +233,7 @@ export default {
         this.reachedFileCountLimit = reachedFileCountLimit;
       }
     },
-    resetProfile: function() {
+    resetProfile: function () {
       this.profile.email = null;
       this.profile.name = null;
       this.profile.photoUrl = null;

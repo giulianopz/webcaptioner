@@ -1,10 +1,6 @@
 <template>
   <div>
-    <img
-      :src="channel.iconPath"
-      class="w-100 col-6 d-block mx-auto mt-2 mb-3"
-      alt="Zoom"
-    />
+    <img :src="channel.iconPath" class="w-100 col-6 d-block mx-auto mt-2 mb-3" alt="Zoom" />
     <p class="lead text-center">
       Automatically save transcripts to Dropbox.
     </p>
@@ -15,24 +11,15 @@
       Captioner will not have access to any other folders in your Dropbox.
     </p>
     <div class="card card-body">
-      <div
-        v-if="savedChannel && savedChannel.error"
-        class="alert alert-warning small"
-      >
+      <div v-if="savedChannel && savedChannel.error" class="alert alert-warning small">
         <strong class="text-danger">
           <fa icon="exclamation-triangle" /> Error:
         </strong>
         {{ savedChannel.error }}
       </div>
-      <b-alert
-        variant="danger"
-        dismissible
-        :show="showHowToFinishDisconnectMessage"
-      >
+      <b-alert variant="danger" dismissible :show="showHowToFinishDisconnectMessage">
         To finish disconnecting your Dropbox account,
-        <a href="https://www.dropbox.com/account/connected_apps" target="_blank"
-          >visit your connected apps in Dropbox</a
-        >
+        <a href="https://www.dropbox.com/account/connected_apps" target="_blank">visit your connected apps in Dropbox</a>
         and remove Web Captioner.
       </b-alert>
       <div v-if="revoking">
@@ -45,13 +32,7 @@
           <strong>Connected to Dropbox</strong><br />
           <b-spinner v-if="!profile.name || !profile.email" small />
           <span v-else class="small">
-            <b-avatar
-              v-if="profile.photoUrl"
-              :src="profile.photoUrl"
-              variant="info"
-              size="sm"
-              class="mr-1"
-            ></b-avatar>
+            <b-avatar v-if="profile.photoUrl" :src="profile.photoUrl" variant="info" size="sm" class="mr-1"></b-avatar>
             {{ profile.name }} ({{ profile.email }})
           </span>
         </div>
@@ -151,6 +132,7 @@ export default {
           accessToken: this.accessToken,
         });
       } catch (e) {
+        console.log(e)
       } finally {
         this.accessToken = null;
         this.accountId = null;
@@ -191,6 +173,8 @@ export default {
                 accessToken: this.accessToken,
                 accountId: this.accountId,
               },
+            }).catch(function (error) {
+              console.log(error.toJSON());
             });
 
             if (email) {

@@ -1,59 +1,27 @@
 <template>
-  <toast
-    title="Share Captions"
-    :show="show"
-    :onShow="onShow"
-    :onClose="onClose"
-  >
+  <toast title="Share Captions" :show="show" :onShow="onShow" :onClose="onClose">
     <div v-if="!hasValidShareLink">
       <div v-if="expired" class="alert bg-danger small text-white p-2">
         Your previous link expired, but you can get a new one.
       </div>
       <p class="mb-2">Get a link to share live captions with others.</p>
-      <form
-        ref="shareLinkForm"
-        action="javascript:void(0)"
-        onsubmit="return false"
-      >
-        <b-form-checkbox v-model="showBacklink" switch
-          >Show a link back to my stream or website</b-form-checkbox
-        >
+      <form ref="shareLinkForm" action="javascript:void(0)" onsubmit="return false">
+        <b-form-checkbox v-model="showBacklink" switch>Show a link back to my stream or website</b-form-checkbox>
         <transition name="fade-in">
-          <input
-            ref="backlinkInput"
-            required
-            v-if="showBacklink"
-            type="url"
-            class="form-control mt-2 mb-4"
-            v-model="backlink"
-            placeholder="Stream or website URL"
-          />
+          <input ref="backlinkInput" required v-if="showBacklink" type="url" class="form-control mt-2 mb-4"
+            v-model="backlink" placeholder="Stream or website URL" />
         </transition>
-        <b-form-checkbox v-model="showCustomWelcomeMessageAuthorInput" switch
-          >Custom welcome message</b-form-checkbox
-        >
+        <b-form-checkbox v-model="showCustomWelcomeMessageAuthorInput" switch>Custom welcome message</b-form-checkbox>
         <transition name="fade-in">
-          <input
-            ref="showCustomWelcomeMessageAuthorInput"
-            required
-            v-if="showCustomWelcomeMessageAuthorInput"
-            type="text"
-            class="form-control mt-2"
-            v-model="customWelcomeMessageAuthor"
-            placeholder="Your name or business"
-            maxlength="50"
-          />
+          <input ref="showCustomWelcomeMessageAuthorInput" required v-if="showCustomWelcomeMessageAuthorInput" type="text"
+            class="form-control mt-2" v-model="customWelcomeMessageAuthor" placeholder="Your name or business"
+            maxlength="50" />
         </transition>
         <transition name="fade-in">
-          <p
-            v-if="showCustomWelcomeMessageAuthorInput"
-            class="mb-4 mt-2 text-muted"
-          >
+          <p v-if="showCustomWelcomeMessageAuthorInput" class="mb-4 mt-2 text-muted">
             Before captioning starts, your viewers will see this message:
             <br />
-            <span v-if="customWelcomeMessageAuthor"
-              >"{{ customWelcomeMessageAuthor }} has invited you</span
-            >
+            <span v-if="customWelcomeMessageAuthor">"{{ customWelcomeMessageAuthor }} has invited you</span>
             <span v-else>"You've been invited</span> to watch live captions with
             Web Captioner."
           </p>
@@ -73,24 +41,14 @@
         </b-form-group>
         <transition name="fade-in">
           <div v-if="urlType === 'vanity'">
-            <b-badge
-              v-if="vanity"
-              variant="success"
-              class="ml-4 mt-1 px-2 py-1"
-              style="font-size:.9rem"
-            >
+            <b-badge v-if="vanity" variant="success" class="ml-4 mt-1 px-2 py-1" style="font-size:.9rem">
               <fa icon="star" />
               {{ vanity }}
             </b-badge>
             <p v-else-if="vanity === false" class="small text-danger mb-0 mt-2">
               Hang tight! Vanity links aren't available to everyone yet.
             </p>
-            <b-spinner
-              v-else
-              small
-              class="mt-2 ml-4"
-              variant="muted"
-            ></b-spinner>
+            <b-spinner v-else small class="mt-2 ml-4" variant="muted"></b-spinner>
           </div>
         </transition>
       </form>
@@ -98,41 +56,15 @@
     <div v-else style="width:500px; min-width:200px; max-width:100%">
       <p class="font-weight-bold">How will you share captions?</p>
 
-      <a
-        href="javascript:void(0)"
-        @click="showViewerLink = !showViewerLink"
-        class="d-block mb-2 font-weight-bold"
-      >
-        <fa
-          :icon="showViewerLink ? 'caret-down' : 'caret-right'"
-          fixed-width
-        />Share with viewers
+      <a href="javascript:void(0)" @click="showViewerLink = !showViewerLink" class="d-block mb-2 font-weight-bold">
+        <fa :icon="showViewerLink ? 'caret-down' : 'caret-right'" fixed-width />Share with viewers
       </a>
-      <b-collapse
-        id="shareViewerLink"
-        v-model="showViewerLink"
-        accordion="shareLinksAccordion"
-        class="ml-3"
-      >
+      <b-collapse id="shareViewerLink" v-model="showViewerLink" accordion="shareLinksAccordion" class="ml-3">
         <div class="input-group">
-          <input
-            @focus="shareLinkSelect()"
-            @click="shareLinkSelect()"
-            ref="shareLinkInput"
-            type="text"
-            class="form-control"
-            readonly
-            :value="shareLink"
-            :disabled="expiringLink"
-          />
+          <input @focus="shareLinkSelect()" @click="shareLinkSelect()" ref="shareLinkInput" type="text"
+            class="form-control" readonly :value="shareLink" :disabled="expiringLink" />
           <div class="input-group-append">
-            <b-button
-              size="sm"
-              class="pt-2"
-              type="button"
-              :href="shareLink"
-              target="_blank"
-            >
+            <b-button size="sm" class="pt-2" type="button" :href="shareLink" target="_blank">
               <fa icon="arrow-right" />
             </b-button>
           </div>
@@ -146,33 +78,13 @@
         </div>
       </b-collapse>
 
-      <a
-        href="javascript:void(0)"
-        @click="showBroadcastLink = !showBroadcastLink"
-        class="d-block font-weight-bold"
-      >
-        <fa
-          :icon="showBroadcastLink ? 'caret-down' : 'caret-right'"
-          fixed-width
-        />Use in your broadcasting application
+      <a href="javascript:void(0)" @click="showBroadcastLink = !showBroadcastLink" class="d-block font-weight-bold">
+        <fa :icon="showBroadcastLink ? 'caret-down' : 'caret-right'" fixed-width />Use in your broadcasting application
       </a>
-      <b-collapse
-        id="shareBroadcastLink"
-        v-model="showBroadcastLink"
-        accordion="shareLinksAccordion"
-        class="ml-3"
-      >
+      <b-collapse id="shareBroadcastLink" v-model="showBroadcastLink" accordion="shareLinksAccordion" class="ml-3">
         <div class="mt-2">
-          <input
-            @focus="shareLinkSelect()"
-            @click="shareLinkSelect()"
-            ref="shareLinkInput"
-            type="text"
-            class="form-control"
-            readonly
-            :value="shareLinkBroadcast"
-            :disabled="expiringLink"
-          />
+          <input @focus="shareLinkSelect()" @click="shareLinkSelect()" ref="shareLinkInput" type="text"
+            class="form-control" readonly :value="shareLinkBroadcast" :disabled="expiringLink" />
           <div class="small mt-2">
             Use this link in a browser source in Streamlabs OBS, OBS, or XSplit.
             Captions will match your current appearance settings. The splash
@@ -190,13 +102,7 @@
         </p>
         <hr class="my-3" />
       </div>
-      <b-dropdown
-        text="Options"
-        variant="outline-secondary"
-        size="sm"
-        toggle-class="px-2 py-1"
-        :disabled="expiringLink"
-      >
+      <b-dropdown text="Options" variant="outline-secondary" size="sm" toggle-class="px-2 py-1" :disabled="expiringLink">
         <template slot="button-content">
           <fa icon="cog" />
         </template>
@@ -207,32 +113,19 @@
       <span class="pl-2 text-secondary">
         <fa v-if="expiringLink" icon="spinner" spin />
       </span>
-      <b-button
-        size="sm"
-        variant="light"
-        class="text-white px-2 py-1 float-right"
+      <b-button size="sm" variant="light" class="text-white px-2 py-1 float-right"
         style="background:#1b95e0;border-color:#1b95e0;font-family:'Inter', sans-serif;text-transform:none"
-        :href="twitterShareLink"
-        target="_blank"
-        v-b-tooltip.hover
-        title="Share on Twitter"
-      >
+        :href="twitterShareLink" target="_blank" v-b-tooltip.hover title="Share on Twitter">
         <fa :icon="['fab', 'twitter']" />
       </b-button>
       <!-- <b-button size="sm" variant="light" class="text-white px-2 py-1 float-right mr-1" style="background:#3B5998;border-color:#3B5998;font-family:'Inter', sans-serif;text-transform:none" :href="facebookShareLink" target="_blank" v-b-tooltip.hover title="Share on Facebook"><fa :icon="['fab', 'facebook']" /></b-button> -->
     </div>
-    <div
-      v-if="somethingWentWrong"
-      class="alert bg-danger text-white mt-2 mb-0 p-2"
-    >
+    <div v-if="somethingWentWrong" class="alert bg-danger text-white mt-2 mb-0 p-2">
       Something went wrong.
     </div>
     <template v-if="!hasValidShareLink" slot="footer">
-      <b-button
-        @click="getLink()"
-        :disabled="gettingLink || (urlType === 'vanity' && !vanity)"
-        :variant="urlType === 'vanity' && !vanity ? 'light' : 'secondary'"
-      >
+      <b-button @click="getLink()" :disabled="gettingLink || (urlType === 'vanity' && !vanity)"
+        :variant="urlType === 'vanity' && !vanity ? 'light' : 'secondary'">
         Get Link
         <fa v-if="gettingLink" icon="spinner" spin />
       </b-button>
@@ -289,7 +182,7 @@ export default {
       showBroadcastLink: false,
     };
   },
-  mounted: function() {},
+  mounted: function () { },
   methods: {
     onShow() {
       // Called just after popover is shown
@@ -357,6 +250,7 @@ export default {
           ownerKey: this.$store.state.settings.share.ownerKey,
         });
       } catch (e) {
+        console.log(e)
         this.somethingWentWrong = true;
       } finally {
         this.gettingLink = false;
@@ -376,6 +270,7 @@ export default {
         // exist for some reason. We won't invalidate the link server-side, but as far as this client
         // is concerned, we'll remove our references to that link so they
         // can generate a new one.
+        console.log(e)
         this.nullLinkProperties();
       } finally {
         this.expiringLink = false;
@@ -390,7 +285,7 @@ export default {
       this.$store.commit('SET_SHARE_URL_TYPE', { urlType: 'random' });
     },
     shareLinkSelect() {
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         if (this.$refs.shareLinkInput) {
           this.$refs.shareLinkInput.focus();
           this.$refs.shareLinkInput.select();
@@ -399,7 +294,7 @@ export default {
     },
   },
   watch: {
-    show: function(show) {
+    show: function (show) {
       if (show && this.hasValidShareLink) {
         setTimeout(() => {
           this.showViewerLink = true;
@@ -410,32 +305,32 @@ export default {
         this.showViewerLink = false;
       }
     },
-    hasValidShareLink: function() {
+    hasValidShareLink: function () {
       this.shareLinkSelect();
       setTimeout(() => {
         // this.showViewerLink = true;
       }, 100);
     },
-    showBacklink: function(showBacklink) {
+    showBacklink: function (showBacklink) {
       if (!showBacklink) {
         this.backlink = '';
       }
     },
-    subscriberCount: function() {
+    subscriberCount: function () {
       // Hide any tooltips that may be open
       this.$root.$emit('bv::hide::tooltip');
     },
-    showBacklink: function(showBacklink) {
-      this.$nextTick(function() {
+    showBacklink: function (showBacklink) {
+      this.$nextTick(function () {
         if (showBacklink && this.$refs.backlinkInput) {
           this.$refs.backlinkInput.focus();
         }
       });
     },
-    showCustomWelcomeMessageAuthorInput: function(
+    showCustomWelcomeMessageAuthorInput: function (
       showCustomWelcomeMessageAuthorInput
     ) {
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         if (
           showCustomWelcomeMessageAuthorInput &&
           this.$refs.showCustomWelcomeMessageAuthorInput
@@ -444,7 +339,7 @@ export default {
         }
       });
     },
-    urlType: function(urlType) {
+    urlType: function (urlType) {
       if (urlType === 'vanity' && this.$store.state.user.uid) {
         let db = this.$firebase.firestore();
         db.collection('users')
@@ -468,22 +363,22 @@ export default {
     },
   },
   computed: {
-    show: function() {
+    show: function () {
       return this.$store.state.share.settings.show;
     },
-    subscriberCount: function() {
+    subscriberCount: function () {
       return this.$store.state.receivers.share.subscriberCount;
     },
-    shareLink: function() {
+    shareLink: function () {
       return this.$store.state.settings.share.url;
     },
-    shareLinkBroadcast: function() {
+    shareLinkBroadcast: function () {
       return this.$store.state.settings.share.url + '?broadcast';
     },
-    roomId: function() {
+    roomId: function () {
       return this.$store.state.settings.share.roomId;
     },
-    expireDate: function() {
+    expireDate: function () {
       return this.$store.state.settings.share.expireDate;
     },
     urlType: {
@@ -494,7 +389,7 @@ export default {
         this.$store.commit('SET_SHARE_URL_TYPE', { urlType });
       },
     },
-    vanity: function() {
+    vanity: function () {
       return this.$store.state.settings.share.vanity;
     },
     hasValidShareLink() {
@@ -516,7 +411,7 @@ export default {
         this.shareLink
       );
     },
-    expired: function() {
+    expired: function () {
       return this.$store.state.share.expired;
     },
   },

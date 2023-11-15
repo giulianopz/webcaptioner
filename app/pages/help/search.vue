@@ -42,9 +42,11 @@ export default {
       this.loading = true;
       this.searchDebounced();
     },
-    searchDebounced: debounce(async function() {
+    searchDebounced: debounce(async function () {
       this.searchResultArticles = await this.$axios.$get('/api/docs/articles', {
         params: { query: this.query },
+      }).catch(function (error) {
+        console.log(error.toJSON());
       });
       this.loading = false;
     }, 500),

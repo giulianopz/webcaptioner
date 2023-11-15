@@ -63,6 +63,7 @@ export default {
       //   res.statusCode = 404; // send 404 back
       //   return { notFound: true };
       // }
+      console.log(e)
     }
   },
   data: function () {

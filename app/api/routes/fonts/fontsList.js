@@ -8,21 +8,23 @@ module.exports.getFonts = async function () {
     return cachedFonts;
   }
 
-  let {
-    data: { items },
-  } = await axios.get(
-    'https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=' +
-    process.env.GOOGLE_FONTS_API_KEY
-  );
+  //let {
+  //  data: { items },
+  //} = await axios.get(
+  //  'https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=' +
+  //  process.env.GOOGLE_FONTS_API_KEY
+  //).catch(function (error) {
+  //  console.log(error.toJSON());
+  //});
 
-  items = items.map((font) => {
-    // only return the font family name and variants in response
-    return {
-      fontFamily: font.family,
-      variants: font.variants,
-      googleFont: true,
-    };
-  });
+  //items = items.map((font) => {
+  //  // only return the font family name and variants in response
+  //  return {
+  //    fontFamily: font.family,
+  //    variants: font.variants,
+  //    googleFont: true,
+  //  };
+  //});
 
   const fontsToReturn = [
     // Add OpenDyslexic
@@ -43,7 +45,7 @@ module.exports.getFonts = async function () {
       googleFont: false,
       excludeFromPopular: true,
     },
-    ...items,
+    //...items,
   ];
 
   cache.set(

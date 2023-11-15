@@ -10,7 +10,7 @@ export default {
       title: `${this.categoryName} - Web Captioner Help`,
     };
   },
-  data: function() {
+  data: function () {
     return {
       categoryName: '',
       categoryUrl: '',
@@ -27,6 +27,7 @@ export default {
       );
       return { categoryName, categoryUrl, articles };
     } catch (e) {
+      console.log(e)
       error({
         statusCode: e.response.status,
         message: e.response.data,

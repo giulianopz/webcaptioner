@@ -1,27 +1,17 @@
 <template>
   <transition :name="inline ? 'expand' : 'fade'">
-    <b-button
-      v-if="show && backlink"
-      @mouseover="backlinkHovering = true"
-      @mouseleave="backlinkHovering = false"
-      :href="backlink.url"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-left d-flex align-items-center backlink-button p-2 border border-0"
-      :style="backlinkStyle"
-      variant="dark"
-    >
-      <div
-        v-if="backlink.imageUrl"
-        class="og-image flex-shrink-0"
-        :style="{backgroundImage: 'url(\''+ backlink.imageUrl +'\')'}"
-      ></div>
+    <b-button v-if="show && backlink" @mouseover="backlinkHovering = true" @mouseleave="backlinkHovering = false"
+      :href="backlink.url" target="_blank" rel="noopener noreferrer"
+      class="text-left d-flex align-items-center backlink-button p-2 border border-0" :style="backlinkStyle"
+      variant="dark">
+      <div v-if="backlink.imageUrl" class="og-image flex-shrink-0"
+        :style="{ backgroundImage: 'url(\'' + backlink.imageUrl + '\')' }"></div>
       <fa v-else icon="info-circle" class="m-1" size="2x" />
       <transition name="fade">
         <div v-show="shouldShowInfo || alwaysExpanded" class="og-text px-1 ml-2">
-          {{backlink.title}}
+          {{ backlink.title }}
           <br />
-          <span class="normal-text small">{{backlink.description}}</span>
+          <span class="normal-text small">{{ backlink.description }}</span>
         </div>
       </transition>
     </b-button>
@@ -51,7 +41,7 @@ export default {
       default: true,
     },
   },
-  data: function() {
+  data: function () {
     return {
       backlink: null,
       backlinkHovering: false,
@@ -59,7 +49,7 @@ export default {
       aboutToCloseTimeout: null,
     };
   },
-  mounted: function() {
+  mounted: function () {
     setInterval(this.updateRoomBacklink, 1000 * 60 * 2);
 
     if (this.backlinkData) {
@@ -70,7 +60,7 @@ export default {
     }
   },
   methods: {
-    updateRoomBacklink: async function() {
+    updateRoomBacklink: async function () {
       if (!this.roomId) {
         return;
       }
@@ -78,19 +68,19 @@ export default {
       try {
         const { backlink } = await this.$axios.$get(
           '/api/rooms/' + this.roomId + '/backlink'
-        );
+        )
         this.backlink = backlink;
-      } catch (e) {}
+      } catch (e) { console.log(e) }
     },
   },
   computed: {
-    backlinkStyle: function() {
+    backlinkStyle: function () {
       return {
         ...(this.backlink.colors
           ? {
-              backgroundColor: this.backlink.colors.background,
-              color: this.backlink.colors.text,
-            }
+            backgroundColor: this.backlink.colors.background,
+            color: this.backlink.colors.text,
+          }
           : {}),
         ...(this.inline
           ? {}
@@ -99,7 +89,7 @@ export default {
     },
   },
   watch: {
-    backlinkHovering: function(backlinkHovering) {
+    backlinkHovering: function (backlinkHovering) {
       if (backlinkHovering) {
         this.shouldShowInfo = true;
         clearTimeout(this.aboutToCloseTimeout);
@@ -143,6 +133,7 @@ export default {
   opacity: 1;
   filter: brightness(1);
 }
+
 .expand-enter,
 .expand-leave-to {
   max-height: 0;

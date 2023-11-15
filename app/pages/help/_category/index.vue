@@ -1,17 +1,15 @@
 <template>
   <div>
-    <b-breadcrumb
-      :items="[
-        {
-          text: 'Help Center',
-          to: '/help',
-        },
-        {
-          text: categoryName,
-          active: true,
-        },
-      ]"
-    ></b-breadcrumb>
+    <b-breadcrumb :items="[
+      {
+        text: 'Help Center',
+        to: '/help',
+      },
+      {
+        text: categoryName,
+        active: true,
+      },
+    ]"></b-breadcrumb>
     <h1 class="mb-4">{{ categoryName }}</h1>
     <article-list :articles="articles" />
   </div>
@@ -41,13 +39,14 @@ export default {
         categoryName,
       };
     } catch (error) {
+      console.log(error)
       if (res) {
         res.statusCode = 404; // send 404 back
         return { notFound: true };
       }
     }
   },
-  data: function() {
+  data: function () {
     return {
       articles: {},
       categoryName: '',

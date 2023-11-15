@@ -6,7 +6,9 @@ export const actions = {
       channelsPath += `?experiments=${experiments.join(',')}`;
     }
 
-    const channels = await this.$axios.$get(channelsPath);
+    const channels = await this.$axios.$get(channelsPath).catch(function (error) {
+      console.log(error.toJSON());
+    });
     return channels;
   },
 };
