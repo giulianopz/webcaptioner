@@ -298,17 +298,13 @@ export default {
     incompatibleBrowser: 'Incompatible Browser',
     message: {
       i0:
-        'Sorry, but currently Web Captioner only works in Google Chrome on Windows, Mac OS and Chrome OS. This is because Web Captioner {reliesOnTechnologyCalledWebSpeechAPI} that is only supported by Google Chrome at the moment and no other browsers.',
+        'Sorry but Web Captioner only works in Google Chrome since it relies on a technology called the {webSpeechAPI} that is only supported by this browser.',
       i1:
         "You can still look around and play with settings, but in order to start captioning, you'll have to {switchToGoogleChrome}.",
-      i2:
-        'If compatibility with browsers other than Chrome is important to you, {castAVoteHere}.',
       switchToGoogleChrome: 'switch to Google Chrome',
-      castAVoteHere: 'cast a vote here',
-      reliesOnTechnologyCalledWebSpeechAPI:
-        'relies on a technology called the Web Speech API',
+      webSpeechAPI:
+        'Web Speech API',
     },
-    whyJustChrome: 'Why just Chrome?',
     lookAroundAnyway: 'Look Around Anyway',
   },
 };
