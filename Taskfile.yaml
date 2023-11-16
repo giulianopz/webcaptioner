@@ -14,7 +14,8 @@ tasks:
     cmds:
     - npm run dev
   
-  deploy:
+  start:
+    desc: "start prod build"
     dir: '{{.USER_WORKING_DIR}}/app'
     cmds:
     - npm i
@@ -22,12 +23,18 @@ tasks:
     - npm run start
 
   build:
+    desc: "build container image"
     cmds:
     - docker build -t webcaptioner .
 
   run:
+    desc: "run latest container image"
     cmds:
     - docker stop demo
     - docker rm demo
     - docker run -p 8080:8080 --name demo webcaptioner:latest
 
+  deploy:
+    desc: "deploy to remote server"
+    cmds:
+    - fly deploy --ha=false
