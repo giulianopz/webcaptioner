@@ -2,6 +2,12 @@ version: '3'
 
 tasks:
 
+  install:
+    desc: "install npm dependencies"
+    dir: '{{.USER_WORKING_DIR}}/app'
+    cmds:
+    - npm i
+
   serve:
     desc: "run webcaptioner locally"
     dir: '{{.USER_WORKING_DIR}}/app'
