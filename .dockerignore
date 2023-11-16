@@ -1,2 +1,10 @@
-app/node_modules
-static-site/node_modules
+fly.toml
+crowdin.yml
+cypress.json
+LICENSE.md
+README.md
+Taskfile.yaml
+.git
+.gitignore
+.jshintrc
+.prettierrc

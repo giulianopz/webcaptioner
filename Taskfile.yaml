@@ -23,5 +23,5 @@ tasks:
     cmds:
     - docker stop demo
     - docker rm demo
-    - docker run -p 3000:3000 --name demo webcaptioner:latest
+    - docker run -p 8080:8080 --name demo webcaptioner:latest
 
